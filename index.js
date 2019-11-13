@@ -39,9 +39,26 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
-
+function Person(name, age) {
+  this.name = name,
+  this.age = age,
+  this.stomach = [];
 }
+
+Person.prototype.eat = function(someFood){
+  if (this.stomach.length < 10){
+    this.stomach.push(someFood)
+  }
+}
+
+Person.prototype.poop = function (){
+  return this.stomach.length = 0;
+}
+
+Person.prototype.toString = function(){
+  return `${this.name}, ${this.age}`;
+ }
+ 
 
 /*
   TASK 2
@@ -57,8 +74,24 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
+function Car(model, milesPerGallon) {
+  this.model = model,
+  this.milesPerGallon = milesPerGallon,
+  this.tank = 0,
+  this.milesPerGallon = milesPerGallon,
+  this.odometer = 0
+}
 
+Car.prototype.fill = function(gallons){
+  return this.tank += gallons;
+}
+
+Car.prototype.drive = function(distance){
+  this.odometer +=distance;
+  this.tank -=  (distance/this.milesPerGallon);
+  if (this.tank <= 0) {
+    return `I ran out of fuel at ${this.odometer-1} miles!`
+    }
 }
 
 /*
@@ -68,18 +101,24 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
-
+Baby.prototype = Object.create(Person.prototype);
+function Baby(name, age, favoriteToy) {
+  this.name = name;
+  this.age = age;
+  this.favoriteToy = favoriteToy;
+}
+Baby.prototype.play = function(){
+  return `Playing with ${this.favoriteToy}`
 }
 
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Implicit binding: look at the left of "." when calling
+  2. Explicit binding: using call, apply, bind to identify meaning of this
+  3. New binding: when function invoked with the "new" keyword, this is bound to new object being constructed
+  4. Window binding: if none of the above apply, then this will apply to window (unless strict mode is on)
 */
 
 
